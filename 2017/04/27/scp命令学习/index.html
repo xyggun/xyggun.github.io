@@ -1,0 +1,1145 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="linux命令," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="原文 是在cnblog上的，但是cn上的显示有点捉急。我根据自己对原文章的学习以及理解，将它拷贝过来了。 概述&amp;emsp;scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出">
+<meta name="keywords" content="linux命令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="scp命令学习">
+<meta property="og:url" content="https://xyggun.github.io/2017/04/27/scp命令学习/index.html">
+<meta property="og:site_name" content="XYGGUN">
+<meta property="og:description" content="原文 是在cnblog上的，但是cn上的显示有点捉急。我根据自己对原文章的学习以及理解，将它拷贝过来了。 概述&amp;emsp;scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出">
+<meta property="og:updated_time" content="2017-04-27T08:50:42.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="scp命令学习">
+<meta name="twitter:description" content="原文 是在cnblog上的，但是cn上的显示有点捉急。我根据自己对原文章的学习以及理解，将它拷贝过来了。 概述&amp;emsp;scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://xyggun.github.io/2017/04/27/scp命令学习/"/>
+
+
+
+
+
+  <title>scp命令学习 | XYGGUN</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1260591986&web_id=1260591986" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">XYGGUN</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">记录点滴</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocapitalize="off" autocomplete="off" autocorrect="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2017/04/27/scp命令学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xyggun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XYGGUN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                scp命令学习
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-27T16:30:15+08:00">
+                2017-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/转载/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong><em> <a href="http://www.cnblogs.com/peida/archive/2013/03/15/2960802.html" target="_blank" rel="external">原文</a> 是在cnblog上的，但是cn上的显示有点捉急。我根据自己对原文章的学习以及理解，将它拷贝过来了。</em></strong></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;scp是secure copy的简写，用于在Linux下进行远程拷贝文件的命令，和它类似的命令有cp，不过cp只是在本机进行拷贝不能跨服务器，而且scp传输是加密的。可能会稍微影响一下速度。当你服务器硬盘变为只读 read only system时，用scp可以帮你把文件移出来。另外，scp还非常不占资源，不会提高多少系统负荷，在这一点上，rsync就远远不及它了。虽然 rsync比scp会快一点，但当小文件众多的情况下，rsync会导致硬盘I/O非常高，而scp基本不影响系统正常使用。</p>
+<h2 id="使用简介"><a href="#使用简介" class="headerlink" title="使用简介"></a>使用简介</h2><h3 id="1．命令格式："><a href="#1．命令格式：" class="headerlink" title="1．命令格式："></a>1．命令格式：</h3><p>&emsp;scp [参数] [原路径] [目标路径]</p>
+<h3 id="2．命令功能："><a href="#2．命令功能：" class="headerlink" title="2．命令功能："></a>2．命令功能：</h3><p>&emsp;scp是 secure copy的缩写, scp是linux系统下基于ssh登陆进行安全的远程文件拷贝命令。linux的scp命令可以在linux服务器之间复制文件和目录。</p>
+<h3 id="3．命令参数："><a href="#3．命令参数：" class="headerlink" title="3．命令参数："></a>3．命令参数：</h3><p>&emsp;-1  强制scp命令使用协议ssh1<br>&emsp;-2  强制scp命令使用协议ssh2<br>&emsp;-4  强制scp命令只使用IPv4寻址<br>&emsp;-6  强制scp命令只使用IPv6寻址<br>&emsp;-B  使用批处理模式（传输过程中不询问传输口令或短语）<br>&emsp;-C  允许压缩。（将-C标志传递给ssh，从而打开压缩功能）<br>&emsp;-p 保留原文件的修改时间，访问时间和访问权限。<br>&emsp;-q  不显示传输进度条。<br>&emsp;-r  递归复制整个目录。<br>&emsp;-v 详细方式显示输出。scp和ssh(1)会显示出整个过程的调试信息。这些信息用于调试连接，验证和配置问题。<br>&emsp;-c cipher  以cipher将数据传输进行加密，这个选项将直接传递给ssh。<br>&emsp;-F ssh_config  指定一个替代的ssh配置文件，此参数直接传递给ssh。<br>&emsp;-i identity_file  从指定文件中读取传输时使用的密钥文件，此参数直接传递给ssh。<br>&emsp;-l limit  限定用户所能使用的带宽，以Kbit/s为单位。<br>&emsp;-o ssh_option  如果习惯于使用ssh_config(5)中的参数传递方式，<br>&emsp;-P port  注意是大写的P, port是指定数据传输用到的端口号<br>&emsp;-S program  指定加密传输时所使用的程序。此程序必须能够理解ssh(1)的选项。</p>
+<h3 id="4．使用实例："><a href="#4．使用实例：" class="headerlink" title="4．使用实例："></a>4．使用实例：</h3><p>scp命令的实际应用概述：<br>从本地服务器复制到远程服务器： </p>
+<h4 id="1-复制文件："><a href="#1-复制文件：" class="headerlink" title="(1) 复制文件："></a>(1) 复制文件：</h4><p>命令格式：scp local_file remote_username@remote_ip:remote_folder<br>或者 scp local_file remote_username@remote_ip:remote_file<br>或者 scp local_file remote_ip:remote_folder<br>或者 scp local_file remote_ip:remote_file<br>第1,2个指定了用户名，命令执行后需要输入用户密码，第1个仅指定了远程的目录，文件名字不变，第2个指定了文件名<br>第3,4个没有指定用户名，命令执行后需要输入用户名和密码，第3个仅指定了远程的目录，文件名字不变，第4个指定了文件名   </p>
+<h4 id="2-复制目录："><a href="#2-复制目录：" class="headerlink" title="(2) 复制目录："></a>(2) 复制目录：</h4><p>命令格式：scp -r local_folder remote_username@remote_ip:remote_folder<br>或者 scp -r local_folder remote_ip:remote_folder<br>第1个指定了用户名，命令执行后需要输入用户密码；<br>第2个没有指定用户名，命令执行后需要输入用户名和密码；</p>
+<p>从远程服务器复制到本地服务器：<br>从远程复制到本地的scp命令与上面的命令雷同，只要将从本地复制到远程的命令后面2个参数互换顺序就行了。</p>
+<h4 id="实例1：从远处复制文件到本地目录"><a href="#实例1：从远处复制文件到本地目录" class="headerlink" title="实例1：从远处复制文件到本地目录"></a>实例1：从远处复制文件到本地目录</h4><p>命令：scp root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/<br>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">[root@localhost ~]<span class="comment"># cd /opt/soft/</span></div><div class="line">[root@localhost soft]<span class="comment"># ll</span></div><div class="line">总计 80072</div><div class="line">drwxr-xr-x 12 root root     4096 09-21 18:40 fms3.5</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 17:58 fms4.5</div><div class="line">drwxr-xr-x 10 root root     4096 10-30 17:15 jdk1.6.0_16</div><div class="line">drwxr-xr-x 10 root root     4096 09-17 19:27 jdk1.6.0_16.bak</div><div class="line">-rwxr-xr-x  1 root root 81871260 2009-12-21 jdk-6u16-linux-x64.bin</div><div class="line">drwxrwxrwx  2 root root     4096 09-21 01:16 mysql</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 18:40 setup_file</div><div class="line">drwxr-xr-x  9 root root     4096 09-17 19:23 tomcat6.0.32</div><div class="line">drwxr-xr-x  9 root root     4096 2012-08-14 tomcat_7.0</div><div class="line">[root@localhost soft]<span class="comment"># scp root@192.168.120.204:/opt/soft/nginx-0.5.38.tar.gz /opt/soft/</span></div><div class="line">root@<span class="string">'192.168.120.204'</span>s password: </div><div class="line">nginx-0.5.38.tar.gz                                                                               100%  479KB 478.7KB/s   00:00    </div><div class="line">[root@localhost soft]<span class="comment"># ll</span></div><div class="line">总计 80556</div><div class="line">drwxr-xr-x 12 root root     4096 09-21 18:40 fms3.5</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 17:58 fms4.5</div><div class="line">drwxr-xr-x 10 root root     4096 10-30 17:15 jdk1.6.0_16</div><div class="line">drwxr-xr-x 10 root root     4096 09-17 19:27 jdk1.6.0_16.bak</div><div class="line">-rwxr-xr-x  1 root root 81871260 2009-12-21 jdk-6u16-linux-x64.bin</div><div class="line">drwxrwxrwx  2 root root     4096 09-21 01:16 mysql</div><div class="line">-rw-r--r--  1 root root   490220 03-15 09:11 nginx-0.5.38.tar.gz</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 18:40 setup_file</div><div class="line">drwxr-xr-x  9 root root     4096 09-17 19:23 tomcat6.0.32</div><div class="line">drwxr-xr-x  9 root root     4096 2012-08-14 tomcat_7.0</div><div class="line">[root@localhost soft]<span class="comment">#</span></div></pre></td></tr></table></figure>
+<p>说明：从192.168.120.204机器上的/opt/soft/的目录中下载nginx-0.5.38.tar.gz 文件到本地/opt/soft/目录中</p>
+<h4 id="实例2：从远处复制到本地"><a href="#实例2：从远处复制到本地" class="headerlink" title="实例2：从远处复制到本地"></a>实例2：从远处复制到本地</h4><p>命令：scp -r root@192.168.120.204:/opt/soft/mongodb /opt/soft/<br>输出：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">[root@localhost soft]<span class="comment"># ll</span></div><div class="line">总计 80556</div><div class="line">drwxr-xr-x 12 root root     4096 09-21 18:40 fms3.5</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 17:58 fms4.5</div><div class="line">drwxr-xr-x 10 root root     4096 10-30 17:15 jdk1.6.0_16</div><div class="line">drwxr-xr-x 10 root root     4096 09-17 19:27 jdk1.6.0_16.bak</div><div class="line">-rwxr-xr-x  1 root root 81871260 2009-12-21 jdk-6u16-linux-x64.bin</div><div class="line">drwxrwxrwx  2 root root     4096 09-21 01:16 mysql</div><div class="line">-rw-r--r--  1 root root   490220 03-15 09:11 nginx-0.5.38.tar.gz</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 18:40 setup_file</div><div class="line">drwxr-xr-x  9 root root     4096 09-17 19:23 tomcat6.0.32</div><div class="line">drwxr-xr-x  9 root root     4096 2012-08-14 tomcat_7.0</div><div class="line">[root@localhost soft]<span class="comment"># scp -r root@192.168.120.204:/opt/soft/mongodb /opt/soft/</span></div><div class="line">root@192.168.120.204<span class="string">'s password: </span></div><div class="line">mongodb-linux-i686-static-1.8.5.tgz                                                               100%   28MB  28.3MB/s   00:01    </div><div class="line">README                                                                                            100%  731     0.7KB/s   00:00    </div><div class="line">THIRD-PARTY-NOTICES                                                                               100% 7866     7.7KB/s   00:00    </div><div class="line">mongorestore                                                                                      100% 7753KB   7.6MB/s   00:00    </div><div class="line">mongod                                                                                            100% 7760KB   7.6MB/s   00:01    </div><div class="line">mongoexport                                                                                       100% 7744KB   7.6MB/s   00:00    </div><div class="line">bsondump                                                                                          100% 7737KB   7.6MB/s   00:00    </div><div class="line">mongofiles                                                                                        100% 7748KB   7.6MB/s   00:01    </div><div class="line">mongostat                                                                                         100% 7808KB   7.6MB/s   00:00    </div><div class="line">mongos                                                                                            100% 5262KB   5.1MB/s   00:01    </div><div class="line">mongo                                                                                             100% 3707KB   3.6MB/s   00:00    </div><div class="line">mongoimport                                                                                       100% 7754KB   7.6MB/s   00:00    </div><div class="line">mongodump                                                                                         100% 7773KB   7.6MB/s   00:00    </div><div class="line">GNU-AGPL-3.0                                                                                      100%   34KB  33.7KB/s   00:00    </div><div class="line">[root@localhost soft]# ll</div><div class="line">总计 80560</div><div class="line">drwxr-xr-x 12 root root     4096 09-21 18:40 fms3.5</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 17:58 fms4.5</div><div class="line">drwxr-xr-x 10 root root     4096 10-30 17:15 jdk1.6.0_16</div><div class="line">drwxr-xr-x 10 root root     4096 09-17 19:27 jdk1.6.0_16.bak</div><div class="line">-rwxr-xr-x  1 root root 81871260 2009-12-21 jdk-6u16-linux-x64.bin</div><div class="line">drwxr-xr-x  3 root root     4096 03-15 09:18 mongodb</div><div class="line">drwxrwxrwx  2 root root     4096 09-21 01:16 mysql</div><div class="line">-rw-r--r--  1 root root   490220 03-15 09:11 nginx-0.5.38.tar.gz</div><div class="line">drwxr-xr-x  3 root root     4096 09-21 18:40 setup_file</div><div class="line">drwxr-xr-x  9 root root     4096 09-17 19:23 tomcat6.0.32</div><div class="line">drwxr-xr-x  9 root root     4096 2012-08-14 tomcat_7.0</div><div class="line">[root@localhost soft]#</div></pre></td></tr></table></figure></p>
+<p>说明：从192.168.120.204机器上的/opt/soft/中下载mongodb 目录到本地的/opt/soft/目录来。</p>
+<h4 id="实例3：上传本地文件到远程机器指定目录"><a href="#实例3：上传本地文件到远程机器指定目录" class="headerlink" title="实例3：上传本地文件到远程机器指定目录"></a>实例3：上传本地文件到远程机器指定目录</h4><p>命令：scp /opt/soft/nginx-0.5.38.tar.gz root@192.168.120.204:/opt/soft/scptest<br>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">上传前目标机器的目标目录：</div><div class="line">[root@localhost soft]<span class="comment"># cd scptest/</span></div><div class="line">[root@localhost scptest]<span class="comment"># ll</span></div><div class="line">总计 0</div><div class="line">[root@localhost scptest]<span class="comment"># ll</span></div><div class="line"></div><div class="line">本地机器上传：</div><div class="line">[root@localhost soft]<span class="comment"># scp /opt/soft/nginx-0.5.38.tar.gz root@192.168.120.204:/opt/soft/scptest</span></div><div class="line">root@<span class="string">'192.168.120.204'</span>s password: </div><div class="line">nginx-0.5.38.tar.gz                                                                               100%  479KB 478.7KB/s   00:00    </div><div class="line">[root@localhost soft]<span class="comment"># </span></div><div class="line"></div><div class="line">上传后目标机器的目标目录：</div><div class="line">[root@localhost scptest]<span class="comment"># ll</span></div><div class="line">总计 484</div><div class="line">-rw-r--r-- 1 root root 490220 03-15 09:25 nginx-0.5.38.tar.gz</div><div class="line">[root@localhost scptest]<span class="comment">#</span></div></pre></td></tr></table></figure>
+<p>说明：复制本地opt/soft/目录下的文件nginx-0.5.38.tar.gz 到远程机器192.168.120.204的opt/soft/scptest目录</p>
+<h4 id="实例4：上传本地目录到远程机器指定目录"><a href="#实例4：上传本地目录到远程机器指定目录" class="headerlink" title="实例4：上传本地目录到远程机器指定目录"></a>实例4：上传本地目录到远程机器指定目录</h4><p>命令：scp -r /opt/soft/mongodb root@192.168.120.204:/opt/soft/scptest<br>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">上传前目标机器的目标目录：</div><div class="line">[root@localhost ~]<span class="comment"># cd /opt/soft/scptest/</span></div><div class="line">[root@localhost scptest]<span class="comment"># ll</span></div><div class="line">总计 484</div><div class="line">-rw-r--r-- 1 root root 490220 03-15 09:25 nginx-0.5.38.tar.gz</div><div class="line">[root@localhost scptest]<span class="comment"># </span></div><div class="line">本地机器上传：</div><div class="line">[root@localhost ~]<span class="comment"># scp -r /opt/soft/mongodb root@192.168.120.204:/opt/soft/scptest</span></div><div class="line">root@<span class="string">'192.168.120.204'</span>s password: </div><div class="line">mongodb-linux-i686-static-1.8.5.tgz                                                               100%   28MB  28.3MB/s   00:01    </div><div class="line">README                                                                                            100%  731     0.7KB/s   00:00    </div><div class="line">THIRD-PARTY-NOTICES                                                                               100% 7866     7.7KB/s   00:00    </div><div class="line">mongorestore                                                                                      100% 7753KB   7.6MB/s   00:00    </div><div class="line">mongod                                                                                            100% 7760KB   7.6MB/s   00:01    </div><div class="line">mongoexport                                                                                       100% 7744KB   7.6MB/s   00:00    </div><div class="line">bsondump                                                                                          100% 7737KB   7.6MB/s   00:00    </div><div class="line">mongofiles                                                                                        100% 7748KB   7.6MB/s   00:00    </div><div class="line">mongostat                                                                                         100% 7808KB   7.6MB/s   00:01    </div><div class="line">mongos                                                                                            100% 5262KB   5.1MB/s   00:00    </div><div class="line">mongo                                                                                             100% 3707KB   3.6MB/s   00:00    </div><div class="line">mongoimport                                                                                       100% 7754KB   7.6MB/s   00:01    </div><div class="line">mongodump                                                                                         100% 7773KB   7.6MB/s   00:00    </div><div class="line">GNU-AGPL-3.0                                                                                      100%   34KB  33.7KB/s   00:00    </div><div class="line">[root@localhost ~]<span class="comment"># </span></div><div class="line"></div><div class="line">上传后目标机器的目标目录：</div><div class="line">[root@localhost scptest]<span class="comment"># ll</span></div><div class="line">总计 488</div><div class="line">drwxr-xr-x 3 root root   4096 03-15 09:33 mongodb</div><div class="line">-rw-r--r-- 1 root root 490220 03-15 09:25 nginx-0.5.38.tar.gz</div><div class="line">[root@localhost scptest]<span class="comment">#</span></div></pre></td></tr></table></figure>
+<p>说明：上传本地目录 /opt/soft/mongodb到远程机器192.168.120.204上/opt/soft/scptest的目录中去</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/linux命令/" rel="tag"># linux命令</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/27/北京行/" rel="prev" title="北京行">
+                北京行 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpeg"
+               alt="xyggun" />
+          <p class="site-author-name" itemprop="name">xyggun</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xyggun" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/xyggun" target="_blank" title="Twitter">
+                  
+                    <i class="fa fa-fw fa-twitter"></i>
+                  
+                  Twitter
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/3032572177" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/xiang-zhun-64" target="_blank" title="知乎">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  知乎
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用简介"><span class="nav-number">2.</span> <span class="nav-text">使用简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1．命令格式："><span class="nav-number">2.1.</span> <span class="nav-text">1．命令格式：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2．命令功能："><span class="nav-number">2.2.</span> <span class="nav-text">2．命令功能：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3．命令参数："><span class="nav-number">2.3.</span> <span class="nav-text">3．命令参数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4．使用实例："><span class="nav-number">2.4.</span> <span class="nav-text">4．使用实例：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-复制文件："><span class="nav-number">2.4.1.</span> <span class="nav-text">(1) 复制文件：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-复制目录："><span class="nav-number">2.4.2.</span> <span class="nav-text">(2) 复制目录：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例1：从远处复制文件到本地目录"><span class="nav-number">2.4.3.</span> <span class="nav-text">实例1：从远处复制文件到本地目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例2：从远处复制到本地"><span class="nav-number">2.4.4.</span> <span class="nav-text">实例2：从远处复制到本地</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例3：上传本地文件到远程机器指定目录"><span class="nav-number">2.4.5.</span> <span class="nav-text">实例3：上传本地文件到远程机器指定目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#实例4：上传本地目录到远程机器指定目录"><span class="nav-number">2.4.6.</span> <span class="nav-text">实例4：上传本地目录到远程机器指定目录</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">xyggun</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      $('#local-search-input').focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
