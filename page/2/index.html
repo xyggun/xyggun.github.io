@@ -316,6 +316,349 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2017/04/27/2017-4-27-top命令学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xyggun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XYGGUN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/27/2017-4-27-top命令学习/" itemprop="url">
+                  top命令学习
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-27T11:26:45+08:00">
+                2017-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/转载/" itemprop="url" rel="index">
+                    <span itemprop="name">转载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><strong><em> <a href="http://www.cnblogs.com/peida/archive/2012/12/24/2831353.html" target="_blank" rel="external">原文</a> 是在cnblog上的，但是cn上的显示有点捉急。我根据自己对原文章的学习以及理解，将它拷贝过来了。</em></strong></p>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>&emsp;&emsp;top命令是Linux下常用的性能分析工具，能够实时显示系统中各个进程的资源占用状况，类似于Windows的任务管理器。下面详细介绍它的使用方法。top是一个动态显示过程,即可以通过用户按键来不断刷新当前状态.如果在前台执行该命令,它将独占前台,直到用户终止该程序为止.比较准确的说,top命令提供了实时的对系统处理器的状态监视.它将显示系统中CPU最“敏感”的任务列表.该命令可以按CPU使用.内存使用和执行时间对任务进行排序；而且该命令的很多特性都可以通过交互式命令或者在个人定制文件中进行设定.</p>
+<h2 id="使用简介"><a href="#使用简介" class="headerlink" title="使用简介"></a>使用简介</h2><h3 id="1．命令格式："><a href="#1．命令格式：" class="headerlink" title="1．命令格式："></a>1．命令格式：</h3><p>&emsp;top [参数]</p>
+<h3 id="2．命令功能："><a href="#2．命令功能：" class="headerlink" title="2．命令功能："></a>2．命令功能：</h3><p>&emsp;显示当前系统正在执行的进程的相关信息，包括进程ID、内存占用率、CPU占用率等</p>
+<h3 id="3．命令参数："><a href="#3．命令参数：" class="headerlink" title="3．命令参数："></a>3．命令参数：</h3><p>&emsp;-b 批处理<br>&emsp;-c 显示完整的命令<br>&emsp;-I 忽略失效过程<br>&emsp;-s 保密模式<br>&emsp;-S 累积模式<br>&emsp;-i&lt;时间&gt; 设置间隔时间<br>&emsp;-u&lt;用户名&gt; 指定用户名<br>&emsp;-p&lt;进程号&gt; 指定进程<br>&emsp;-n&lt;次数&gt; 循环显示的次数</p>
+<h2 id="运行实例"><a href="#运行实例" class="headerlink" title="运行实例"></a>运行实例</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">root@server_test:~<span class="comment"># top</span></div><div class="line">top - 10:09:22 up 5 days, 20:37,  3 users,  load average: 0.00, 0.02, 0.05</div><div class="line">Tasks:  89 total,   3 running,  86 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  0.3 us,  0.2 sy,  0.0 ni, 99.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem:   4048124 total,  2210376 used,  1837748 free,   174232 buffers</div><div class="line">KiB Swap:        0 total,        0 used,        0 free.   376604 cached Mem</div><div class="line"></div><div class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</div><div class="line">12045 root      20   0 2351916  60184   3796 S   0.3  1.5  28:17.13 java</div><div class="line">    1 root      20   0   33444   2624   1308 S   0.0  0.1   0:01.23 init</div><div class="line">    2 root      20   0       0      0      0 S   0.0  0.0   0:00.05 kthreadd</div><div class="line">    3 root      20   0       0      0      0 S   0.0  0.0   0:00.08 ksoftirqd/0</div><div class="line">    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/0:0H</div><div class="line">    7 root      20   0       0      0      0 S   0.0  0.0   2:21.28 rcu_sched</div><div class="line">    8 root      20   0       0      0      0 R   0.0  0.0   2:08.88 rcuos/0</div><div class="line">    9 root      20   0       0      0      0 S   0.0  0.0   2:09.37 rcuos/1</div><div class="line">   10 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcu_bh</div><div class="line">   11 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcuob/0</div><div class="line">   12 root      20   0       0      0      0 S   0.0  0.0   0:00.00 rcuob/1</div><div class="line">   13 root      rt   0       0      0      0 S   0.0  0.0   0:00.51 migration/0</div><div class="line">   14 root      rt   0       0      0      0 S   0.0  0.0   0:01.18 watchdog/0</div><div class="line">   15 root      rt   0       0      0      0 S   0.0  0.0   0:00.96 watchdog/1</div><div class="line">   16 root      rt   0       0      0      0 S   0.0  0.0   0:00.49 migration/1</div><div class="line">   17 root      20   0       0      0      0 S   0.0  0.0   0:00.11 ksoftirqd/1</div><div class="line">   19 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kworker/1:0H</div><div class="line">   20 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 khelper</div><div class="line">   21 root      20   0       0      0      0 S   0.0  0.0   0:00.00 kdevtmpfs</div><div class="line">   22 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 netns</div><div class="line">   23 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 writeback</div><div class="line">   24 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kintegrityd</div><div class="line">   25 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 bioset</div><div class="line">   27 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 kblockd</div><div class="line">   28 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 ata_sff</div><div class="line">   29 root      20   0       0      0      0 S   0.0  0.0   0:00.00 khubd</div><div class="line">   30 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 md</div><div class="line">   31 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 devfreq_wq</div><div class="line">   32 root      20   0       0      0      0 S   0.0  0.0   0:08.26 kworker/1:1</div><div class="line">   35 root      20   0       0      0      0 S   0.0  0.0   0:00.16 khungtaskd</div><div class="line">   36 root      20   0       0      0      0 S   0.0  0.0   0:00.26 kswapd0</div></pre></td></tr></table></figure>
+<h3 id="前5行是统计信息汇总"><a href="#前5行是统计信息汇总" class="headerlink" title="前5行是统计信息汇总"></a>前5行是统计信息汇总</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top - 10:09:22 up 5 days, 20:37,  3 users,  load average: 0.00, 0.02, 0.05</div></pre></td></tr></table></figure>
+<p>10:09:22 - 表示当前系统时间<br>up 5 days, 20:37 - 表示当前系统以及运行了5天20小时37分钟<br>3 users - 当前有3个用户登录<br>load average: 0.00, 0.02, 0.05 - load average后面的三个数分别是1分钟、5分钟、15分钟的负载情况</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Tasks:  89 total,   3 running,  86 sleeping,   0 stopped,   0 zombie</div></pre></td></tr></table></figure>
+<p>显示目前系统共有89个进程，3个正着运行，86个休眠，0个停止进程，0个僵尸进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%Cpu(s):  0.3 us,  0.2 sy,  0.0 ni, 99.5 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div></pre></td></tr></table></figure>
+<p>0.3%us — 用户空间占用CPU的百分比。<br>0.2% sy — 内核空间占用CPU的百分比。<br>0.0% ni — 改变过优先级的进程占用CPU的百分比<br>99.5% id — 空闲CPU百分比<br>0.0% wa — IO等待占用CPU的百分比<br>0.0% hi — 硬中断（Hardware IRQ）占用CPU的百分比<br>0.0% si — 软中断（Software Interrupts）占用CPU的百分比<br>0.0% st — (Steal time) 是当 hypervisor 服务另一个虚拟处理器的时候，虚拟 CPU 等待实际 CPU 的时间的百分比<br>备注：在这里CPU的使用比率和windows概念不同，需要理解linux系统用户空间和内核空间的相关知识！</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">KiB Mem:   4048124 total,  2210376 used,  1837748 free,   174232 buffers</div></pre></td></tr></table></figure>
+<p>4048124k total — 物理内存总量（4GB）<br>2210376k used — 使用中的内存总量（2GB）<br>1837748k free — 空闲内存总量（1.7GB）<br>174232k buffers — 缓存的内存量 （166M）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">KiB Swap:        0 total,        0 used,        0 free.   376604 cached Mem</div></pre></td></tr></table></figure>
+<p>0k total — 交换区总量（0k）<br>0k used — 使用的交换区总量（0K）<br>0k free — 空闲交换区总量（0k）<br>376604k cached — 缓冲的交换区总量（356M）</p>
+<p>备注：<br>KiB Mem 行中使用中的内存总量（used）指的是现在系统内核控制的内存数，空闲内存总量（free）是内核还未纳入其管控范围的数量。纳入内核管理的内存不见得都在使用中，还包括过去使用过的现在可以被重复利用的内存，内核并不把这些可被重新使用的内存交还到free中去，因此在linux上free内存会越来越少，但不用为此担心。<br>如果出于习惯去计算可用内存数，这里有个近似的计算公式：KiB Mem 行的free + KiB Mem 行的buffers + KiB Swap 行的cached，按这个公式此台服务器的可用内存：18537836k +169884k +3612636k = 22GB左右。<br>对于内存监控，在top里我们要时刻监控 KiB Swap 行swap交换分区的used，如果这个数值在不断的变化，说明内核在不断进行内存和swap的数据交换，这是真正的内存不够用了。</p>
+<h3 id="接下来是各进程（任务）的状态监控"><a href="#接下来是各进程（任务）的状态监控" class="headerlink" title="接下来是各进程（任务）的状态监控"></a>接下来是各进程（任务）的状态监控</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</div><div class="line">12045 root      20   0 2351916  60184   3796 S   0.3  1.5  28:24.74 java</div><div class="line">23210 root      20   0 2975048 438700  13856 S   0.3 10.8   0:45.20 java</div><div class="line">    1 root      20   0   33444   2624   1308 S   0.0  0.1   0:01.23 init</div><div class="line">    2 root      20   0       0      0      0 S   0.0  0.0   0:00.05 kthreadd</div></pre></td></tr></table></figure>
+<p>PID — 进程id<br>USER — 进程所有者<br>PR — 进程优先级<br>NI — nice值。负值表示高优先级，正值表示低优先级<br>VIRT — 进程使用的虚拟内存总量，单位kb。VIRT=SWAP+RES<br>RES — 进程使用的、未被换出的物理内存大小，单位kb。RES=CODE+DATA<br>SHR — 共享内存大小，单位kb<br>S — 进程状态。D=不可中断的睡眠状态 R=运行 S=睡眠 T=跟踪/停止 Z=僵尸进程<br>%CPU — 上次更新到现在的CPU时间占用百分比<br>%MEM — 进程使用的物理内存百分比<br>TIME+ — 进程使用的CPU时间总计，单位1/100秒<br>COMMAND — 进程名称（命令名/命令行）</p>
+<h2 id="其他使用技巧："><a href="#其他使用技巧：" class="headerlink" title="其他使用技巧："></a>其他使用技巧：</h2><p>1.多U多核CPU监控<br>在top基本视图中，按键盘数字“1”，可监控每个逻辑CPU的状况：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">top - 10:55:18 up 5 days, 21:23,  2 users,  load average: 0.00, 0.01, 0.05</div><div class="line">Tasks:  86 total,   2 running,  84 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu0  :  0.0 us,  0.0 sy,  0.0 ni,100.0 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div><div class="line">%Cpu1  :  0.0 us,  0.3 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem:   4048124 total,  2208124 used,  1840000 free,   175776 buffers</div><div class="line">KiB Swap:        0 total,        0 used,        0 free.   377228 cached Mem</div><div class="line"></div><div class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</div><div class="line">28111 root      20   0   25384   2256   1632 S   0.3  0.1   1:11.71 AliYunDunUpdate</div><div class="line">    1 root      20   0   33444   2624   1308 S   0.0  0.1   0:01.23 init</div><div class="line">    2 root      20   0       0      0      0 S   0.0  0.0   0:00.05 kthreadd</div><div class="line">    3 root      20   0       0      0      0 S   0.0  0.0   0:00.08 ksoftirqd/0</div></pre></td></tr></table></figure></p>
+<p>观察上面的代码，服务器有2个逻辑CPU，实际上是4个物理CPU。再按数字键1，就会返回到top基本视图界面。<br>2.高亮显示当前运行进程<br>敲击键盘“b”（打开/关闭加亮效果）<br>我们发现进程id为2570的“top”进程被加亮了，top进程就是视图第二行显示的唯一的运行态（runing）的那个进程，可以通过敲击“y”键关闭或打开运行态进程的加亮效果。</p>
+<p>3.进程字段排序<br>默认进入top时，各进程是按照CPU的占用量来排序的，在下图中进程ID为28894的java进程排在第一（cpu占用142%），进程ID为574的java进程排在第二（cpu占用16%）。<br><!-- ![top 默认进入](http://images.cnblogs.com/cnblogs_com/peida/top3.png) --><br><img src="/2017/04/27/2017-4-27-top命令学习/top1.png" alt="top 默认进入"><br>敲击键盘“x”（打开/关闭排序列的加亮效果），top的视图变化如下：<br><!-- ![top 敲击键盘“x”](http://images.cnblogs.com/cnblogs_com/peida/top4.png) --><br><img src="/2017/04/27/2017-4-27-top命令学习/top2.png" alt="top 敲击键盘“x”"><br>可以看到，top默认的排序列是“%CPU”。</p>
+<ol>
+<li>通过”shift + &gt;”或”shift + &lt;”可以向右或左改变排序列<!-- ![top shift + >](http://images.cnblogs.com/cnblogs_com/peida/top5.png) -->
+<img src="/2017/04/27/2017-4-27-top命令学习/top3.png" alt="top shift + &gt;"></li>
+</ol>
+<h3 id="top命令实例"><a href="#top命令实例" class="headerlink" title="top命令实例"></a>top命令实例</h3><p>实例1：显示 完整命令<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top -c</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">top - 11:04:32 up 5 days, 21:32,  2 users,  load average: 0.00, 0.01, 0.05</div><div class="line">Tasks:  87 total,   2 running,  85 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  0.2 us,  0.2 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem:   4048124 total,  2208316 used,  1839808 free,   176064 buffers</div><div class="line">KiB Swap:        0 total,        0 used,        0 free.   377324 cached Mem</div><div class="line"></div><div class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</div><div class="line">12045 root      20   0 2351916  60184   3796 S   0.3  1.5  28:28.04 /usr/<span class="built_in">local</span>/cloudmonitor/jre/bin/java -Djava.compiler=none -XX:-UseGCOverheadLimit -XX:NewRatio=1 -XX:SurvivorRa+</div><div class="line">27797 root      20   0   21960   1472   1040 R   0.3  0.0   0:00.01 top -c</div><div class="line">28157 root      20   0  131040  13176   8392 S   0.3  0.3   4:13.41 /usr/<span class="built_in">local</span>/aegis/aegis_client/aegis_10_19/AliYunDun</div><div class="line">    1 root      20   0   33444   2624   1308 S   0.0  0.1   0:01.23 /sbin/init</div><div class="line">    2 root      20   0       0      0      0 S   0.0  0.0   0:00.05 [kthreadd]</div><div class="line">    3 root      20   0       0      0      0 S   0.0  0.0   0:00.08 [ksoftirqd/0]</div><div class="line">    5 root       0 -20       0      0      0 S   0.0  0.0   0:00.00 [kworker/0:0H]</div><div class="line">    7 root      20   0       0      0      0 R   0.0  0.0   2:21.64 [rcu_sched]</div></pre></td></tr></table></figure>
+<p>实例2：以批处理模式显示程序信息<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top -b</div></pre></td></tr></table></figure>
+<p>实例3：以累积模式显示程序信息<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top -S</div></pre></td></tr></table></figure>
+<p>实例4：设置信息更新次数<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top -n 2</div></pre></td></tr></table></figure>
+<p>说明：表示更新两次后终止更新显示</p>
+<p>实例5：设置信息更新时间<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top <span class="_">-d</span> 3</div></pre></td></tr></table></figure>
+<p>说明：表示更新周期为3秒</p>
+<p>实例6：显示指定的进程信息<br>命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">top -p 23210</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">top - 11:09:31 up 5 days, 21:37,  2 users,  load average: 0.00, 0.01, 0.05</div><div class="line">Tasks:   1 total,   0 running,   1 sleeping,   0 stopped,   0 zombie</div><div class="line">%Cpu(s):  0.2 us,  0.2 sy,  0.0 ni, 99.7 id,  0.0 wa,  0.0 hi,  0.0 si,  0.0 st</div><div class="line">KiB Mem:   4048124 total,  2209724 used,  1838400 free,   176224 buffers</div><div class="line">KiB Swap:        0 total,        0 used,        0 free.   377404 cached Mem</div><div class="line"></div><div class="line">  PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND</div><div class="line">23210 root      20   0 2975048 438796  13856 S   0.0 10.8   0:45.93 java</div></pre></td></tr></table></figure>
+<h3 id="top交互命令"><a href="#top交互命令" class="headerlink" title="top交互命令"></a>top交互命令</h3><p>在top 命令执行过程中可以使用的一些交互命令。这些命令都是单字母的，如果在命令行中使用了s 选项， 其中一些命令可能会被屏蔽。<br>&emsp;h 显示帮助画面，给出一些简短的命令总结说明<br>&emsp;k 终止一个进程。<br>&emsp;i 忽略闲置和僵死进程。这是一个开关式命令。<br>&emsp;q 退出程序<br>&emsp;r 重新安排一个进程的优先级别<br>&emsp;S 切换到累计模式<br>&emsp;s 改变两次刷新之间的延迟时间（单位为s），如果有小数，就换算成m s。输入0值则系统将不断刷新，默认值是5 s<br>&emsp;f或者F 从当前显示中添加或者删除项目<br>&emsp;o或者O 改变显示项目的顺序<br>&emsp;l 切换显示平均负载和启动时间信息<br>&emsp;m 切换显示内存信息<br>&emsp;t 切换显示进程和CPU状态信息<br>&emsp;c 切换显示命令名称和完整命令行<br>&emsp;M 根据驻留内存大小进行排序<br>&emsp;P 根据CPU使用百分比大小进行排序<br>&emsp;T 根据时间/累计时间进行排序<br>&emsp;W 将当前设置写入~/.toprc文件中 </p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2017/04/25/2017-4-25-find-study-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="xyggun">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XYGGUN">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/04/25/2017-4-25-find-study-1/" itemprop="url">
+                  find 命令
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-25T11:52:00+08:00">
+                2017-04-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习/" itemprop="url" rel="index">
+                    <span itemprop="name">学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          find 命令学习
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/04/25/2017-4-25-find-study-1/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
     <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2017/04/25/2017-4-25-redis-study-1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -767,306 +1110,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2017/02/07/2017-2-7-activity-show-dialog/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xyggun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XYGGUN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/02/07/2017-2-7-activity-show-dialog/" itemprop="url">
-                  使用activity伪造dialog时无法全屏的解决方法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-07T11:32:13+08:00">
-                2017-02-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学习/" itemprop="url" rel="index">
-                    <span itemprop="name">学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          使用activity伪造dialog时无法全屏的解决方法
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/02/07/2017-2-7-activity-show-dialog/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="https://xyggun.github.io/2016/12/19/2016-12-19-1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="xyggun">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XYGGUN">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/19/2016-12-19-1/" itemprop="url">
-                  listView OnItemClickListener，onItemClick 不执行
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-12-19T19:14:13+08:00">
-                2016-12-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/小记录/" itemprop="url" rel="index">
-                    <span itemprop="name">小记录</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>&emsp;&emsp;记录下自己所犯的错误，在写ListView的点击事件时OnItemClickListener，onItemClick方法没有执行，导致ListView条目点击事件失效，检查发现百度上有很多不同的答案，但究其本质都是ListView的Item抢占焦点或者Item没有获取焦点甚至没有绑定上OnItemClickListener监听事件，而我所犯的错误是在ListView的Item布局中引入了一个Style，在Style中有一项<item name="Android:clickable">true</item>，正是这一项导致所有Item都要抢占焦点，所以ListView的点击事件失效，在我去掉这一项之后ListView确实正常工作了。<br>&emsp;需要引以为戒的是，在android应用开发中，焦点没有获取或者其他组件抢占焦点的事情经常发生，我们可以在代码中，xml布局中，甚至Style中定义时候抢占焦点，在一般情况下，这个设置并不会造成什么异常，但我需要注意重要的组件在合适的时机必须拿到焦点，否则会产生意想不到的后果，比如我的ListView。一般组件获取焦点可以使用一下方法：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">View.setFocusable(<span class="keyword">true</span>),对应xml : android:focusable=<span class="string">"true"</span>.                                </div><div class="line">View.setFocusableInTouchMode(<span class="keyword">true</span>),对应xml : android:focusableInTouchMode=<span class="string">"true"</span>.</div></pre></td></tr></table></figure>
-<p>&emsp;&emsp;注意：这两个属性要同时使用。<br>&emsp;&emsp;两者的意思是让组件可以获得焦点。不过有些区别，前者执行false条件后，在执行true，还是不能获取焦点。后者执行上述过程，还是能获取焦点。<br>当你加入上述代码后，在创建activity时，调用对应view的requestFocus()，（requestFocus()需要在setContentView之后执行）这样就可以获得焦点了。当editText失去焦点了，也就不会有软键盘了</p>
-<p>&emsp;&emsp;但针对ListView还可以使用android:descendantFocusability属性，下面我们来看一下android:descendantFocusability用法简析<br>以下摘自：<a href="http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html" target="_blank" rel="external">http://www.cnblogs.com/eyu8874521/archive/2012/10/17/2727882.html</a><br>&emsp;&emsp;开发中很常见的一个问题，项目中的listview不仅仅是简单的文字，常常需要自己定义listview，自己的Adapter去继承BaseAdapter，在adapter中按照需求进行编写，问题就出现了，可能会发生点击每一个item的时候没有反应，无法获取的焦点。原因多半是由于在你自己定义的Item中存在诸如ImageButton，Button，CheckBox等子控件(也可以说是Button或者Checkable的子类控件)，此时这些子控件会将焦点获取到，所以常常当点击item时变化的是子控件，item本身的点击没有响应。<br>&emsp;&emsp;这时候就可以使用descendantFocusability来解决啦，API描述如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">android:descendantFocusability</div><div class="line">Defines the relationship between the ViewGroup and its descendants when looking for a View to take focus.</div><div class="line">Must be one of the following constant values.</div></pre></td></tr></table></figure></p>
-<p>该属性是当一个为view获取焦点时，定义viewGroup和其子控件两者之间的关系。</p>
-<p>属性的值有三种：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">beforeDescendants：viewgroup会优先其子类控件而获取到焦点</div><div class="line">afterDescendants：viewgroup只有当其子类控件不需要获取焦点时才获取焦点</div><div class="line">blocksDescendants：viewgroup会覆盖子类控件而直接获得焦点</div></pre></td></tr></table></figure></p>
-<p>&emsp;&emsp;通常我们用到的是第三种，即在Item布局的根布局加上<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:descendantFocusability=”blocksDescendants”</div></pre></td></tr></table></figure></p>
-<p>的属性就好了。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1111,7 +1159,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1122,7 +1170,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">9</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1133,7 +1181,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
