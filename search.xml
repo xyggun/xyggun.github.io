@@ -3,6 +3,30 @@
   
     
     <entry>
+      <title><![CDATA[charles误点deny如何重新加入]]></title>
+      <url>/2017/06/14/charles-deny-reopen/</url>
+      <content type="html"><![CDATA[<p>&emsp;&emsp;mac 上经常用到 charles去对请求做抓包处理时。会弹出让你选择 allow 或者 deny 的对话框，<br><img src="http://xsource.oss-cn-shanghai.aliyuncs.com/img/QQ20170615-100246@2x.png" alt="allow 与 deny 对话框"><br>如果你手抖了一下点了 deny 之后这个 ip 的设备就没办法通过 charles 访问网络了。charles 也不会在弹出对话框，除非设备的 ip 换了。</p>
+<p>&emsp;&emsp;针对这个问题，我们可以通过在charles 的proxy -&gt; Access Control Setting… 设置中修改<br><img src="http://xsource.oss-cn-shanghai.aliyuncs.com/img/QQ20170615-100314@2x.png" alt="设置界面">进入设置中之后，是如下图的界面，在里面添加被 deny 的设备的 ip，就能让访问正常。<br><img src="http://xsource.oss-cn-shanghai.aliyuncs.com/img/QQ20170615-100339@2x.png" alt="添加 Access 记录"></p>
+]]></content>
+      
+        <categories>
+            
+            <category> 小记录 </category>
+            
+        </categories>
+        
+        
+        <tags>
+            
+            <tag> 小问题 </tag>
+            
+            <tag> charles </tag>
+            
+        </tags>
+        
+    </entry>
+    
+    <entry>
       <title><![CDATA[北京行下（流水账）]]></title>
       <url>/2017/06/07/%E5%8C%97%E4%BA%AC%E8%A1%8C%E4%B8%8B/</url>
       <content type="html"><![CDATA[<p>&emsp;&emsp;北京之行，虽然因为军博的装修而非常遗憾，但也因为小汤山的航博而挽回了不少<br><img src="http://xsource.oss-cn-shanghai.aliyuncs.com/img/thumb_5fa.jpg" alt="thumb_5fa"></p>
